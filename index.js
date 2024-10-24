@@ -40,9 +40,33 @@ app.get("/api/person/:id", (req, res) => {
     res.status(404).send({ error: "No Such idot!!!" });
 }
 });
-
-
-
+//=========== delete person by ID ============
+app.delete("/api/person/:id", (req, res) => {
+    const id = req.params.id;
+    persons= persons.filter((person)=> person.id !== id );
+    res.status(204).end();
+});
+//=========== add person ============
+const generateId = ()=>{
+    const maxId =
+    persons.length > 0 ? Math.max(...persons.map((person) => person.id)) : 0;
+  return maxId + 1;
+}
+app.use(express.json());
+app.post("/api/persons", (req, res) => {
+    const { name, number } = req.body;
+    console.log(req.body)
+    if (!name || !number) {
+        return res.status(400).json({ error: "Name or number is missing" });
+        }
+        const newPerson = {
+            id: generateId(),
+            name,
+            number,
+            };
+            persons = [...persons, newPerson];
+            res.json(newPerson);
+            });
 
 //=========== listen to port ============
 app.listen(port, () => {
