@@ -59,6 +59,10 @@ app.post("/api/persons", (req, res) => {
     if (!name || !number) {
         return res.status(400).json({ error: "Name or number is missing" });
         }
+        const personExists = persons.some((person) => person.name === name);
+        if (personExists) {
+          return res.status(400).json({ error: "Name must be unique" });
+        }
         const newPerson = {
             id: generateId(),
             name,
