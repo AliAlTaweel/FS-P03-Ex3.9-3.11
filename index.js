@@ -3,6 +3,7 @@ require("dotenv").config();
 const port = process.env.VITE_PORT || 3003;
 const app = express();
 const cors = require('cors');
+const morgan = require("morgan");
 app.use(express.static('dist'))
 
 let persons = [
@@ -29,6 +30,7 @@ let persons = [
 ];
 
 app.use(cors());
+app.use(morgan("tiny"));
 //=========== get all persons ============
 app.get("/api/persons", (req, res) => {
     res.json(persons);
@@ -50,6 +52,8 @@ app.delete("/api/person/:id", (req, res) => {
     persons= persons.filter((person)=> person.id !== id );
     res.status(204).end();
 });
+
+app.use(express.json());
 //=========== add person ============
 const generateId = ()=>{
     const maxId =
