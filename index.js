@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const port = process.env.VITE_PORT || 3003;
 const app = express();
+const cors = require('cors');
 
 let persons = [
   {
@@ -25,6 +26,8 @@ let persons = [
     id: "4",
   },
 ];
+
+app.use(cors());
 //=========== get all persons ============
 app.get("/api/persons", (req, res) => {
     res.json(persons);
