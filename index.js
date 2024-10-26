@@ -4,7 +4,7 @@ const port = process.env.VITE_PORT || 3003;
 const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
-app.use(express.static("dist"));
+app.use(express.static('dist'))
 
 let persons = [
   {
