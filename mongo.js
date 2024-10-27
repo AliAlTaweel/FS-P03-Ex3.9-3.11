@@ -28,7 +28,7 @@ const personSchema = new mongoose.Schema({
   name: String,
   number: String,
 });
-
+console.log("cd")
 const Person = mongoose.model("Person", personSchema, "pb1");
 
 const person = new Person({
